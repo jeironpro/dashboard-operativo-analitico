@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -15,13 +17,20 @@ import { NAV_ITEMS } from './nav'
 import { Logo } from './Logo'
 
 interface MobileNavProps {
-  activeSection: string
+  /** id del ítem de navegación activo */
+  activeId: string
 }
 
 /** Navegación móvil: botón hamburguesa que abre un drawer con los enlaces. */
-export function MobileNav({ activeSection }: MobileNavProps) {
+export function MobileNav({ activeId }: MobileNavProps) {
+  const [open, setOpen] = useState(false)
+
+  function handleNavigate() {
+    setOpen(false)
+  }
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Abrir menú">
           <MenuIcon />
@@ -39,23 +48,25 @@ export function MobileNav({ activeSection }: MobileNavProps) {
         </SheetHeader>
         <nav aria-label="Navegación principal" className="flex flex-col gap-1 p-3">
           {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.sectionId
+            const isActive = activeId === item.id
             const Icon = item.icon
+            const className = cn(
+              'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium transition-colors',
+              isActive
+                ? 'bg-primary text-primary-foreground'
+                : 'text-foreground/75 hover:bg-accent hover:text-accent-foreground',
+            )
             return (
-              <a
+              <Link
                 key={item.id}
-                href={`#${item.sectionId}`}
+                to={item.path ?? `/#${item.sectionId}`}
+                onClick={handleNavigate}
                 aria-current={isActive ? 'true' : undefined}
-                className={cn(
-                  'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-foreground/75 hover:bg-accent hover:text-accent-foreground',
-                )}
+                className={className}
               >
                 <Icon className="size-4 shrink-0" aria-hidden="true" />
                 {item.label}
-              </a>
+              </Link>
             )
           })}
         </nav>
