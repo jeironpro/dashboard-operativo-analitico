@@ -11,6 +11,7 @@ Dashboard operativo analítico (frontend) para monitorear KPIs de negocio, anali
 - **Filtros** — rango de fechas (presets + calendario), categoría, región y canal. Todos los consumidores (KPIs, gráficos, tabla y reportes) se actualizan al cambiar cualquier filtro.
 - **Detalle de pedidos** — tabla de pedidos recientes con búsqueda (id, cliente o categoría, ignora tildes), filtro por estado y paginación.
 - **Reportes exportables** — desglose de ventas por categoría del periodo filtrado con exportación a **PDF**, **Excel (.xlsx)** y **CSV** (compatible con Excel en español).
+- **Página de perfil** — `/perfil` con los datos de la persona (contacto, estadísticas animadas, habilidades y actividad reciente), accesible desde la navegación y el avatar de la barra superior.
 - **Datos MOCK realistas** — generador determinista (semilla fija) que produce ~20 mil registros diarios coherentes entre series.
 - **100 % responsive** — de 320 px en adelante: sidebar en desktop, drawer en móvil, tablas con columnas adaptativas.
 
@@ -20,8 +21,8 @@ Dashboard operativo analítico (frontend) para monitorear KPIs de negocio, anali
 | ----------- | ------------------------------------------------------------- |
 | Framework   | React 19 + TypeScript + Vite 8                                |
 | Gestor      | yarn 4 (`.yarnrc.yml`, Corepack)                              |
-| UI          | shadcn/ui sobre Tailwind CSS v4 (Radix primitives)            |
-| Estado      | zustand                                                       |
+| UI          | shadcn/ui sobre Tailwind CSS v4 (Radix primitives)            |     | Estado | zustand |
+| Enrutado    | react-router (dashboard en `/`, perfil en `/perfil`)          |
 | Gráficos    | Recharts (vía componente `chart` de shadcn/ui)                |
 | Animaciones | animejs (contadores, transiciones, star-burst)                |
 | Exportación | `jspdf` + `jspdf-autotable` (PDF), `xlsx` (Excel), Blob (CSV) |
@@ -76,6 +77,7 @@ src/
 │  ├─ kpis/            # Tarjetas KPI con contadores y sparklines
 │  ├─ layout/          # Shell: sidebar, topbar, footer marquee, mascota, logo
 │  ├─ orders/          # Tabla de pedidos con búsqueda y paginación
+│  ├─ profile/         # Página de perfil de la persona
 │  └─ reports/         # Reporte por categoría + exportación PDF/Excel/CSV
 ├─ hooks/              # useAnimatedNumber, useReveal, useActiveSection
 ├─ lib/                # Lógica pura y testeable: agregaciones, filtros, pedidos, exporters
@@ -112,8 +114,8 @@ Convenciones: rama `<prefijo>/<categoría>` (ej. `feature/kpi-cards`), commits `
 | T-06 Tarjetas KPI con animejs                 | `feature/kpi-cards`    | ✅     |
 | T-07 Gráficos de tendencias                   | `feature/trend-charts` | ✅     |
 | T-08 Filtros por fecha/categoría/región/canal | `feature/filters`      | ✅     |
-| T-09 Reportes exportables + pedidos           | `feature/reports`      | ✅     |
-| T-10 Documentación final                      | `docs/readme`          | ✅     |
+| T-09 Reportes exportables + pedidos           | `feature/reports`      | ✅     |     | T-10 Documentación final | `docs/readme` | ✅  |
+| T-11 Página de perfil                         | `feature/profile-page` | ✅     |
 
 ## 📜 Licencia
 

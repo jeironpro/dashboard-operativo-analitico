@@ -80,6 +80,25 @@ export interface CustomerMonth {
   nps: number
 }
 
+/** Datos de la persona propietaria del dashboard (perfil). */
+export interface UserProfile {
+  name: string
+  initials: string
+  role: string
+  company: string
+  email: string
+  phone: string
+  location: string
+  timezone: string
+  team: string
+  joined: string
+  bio: string
+  skills: string[]
+  languages: string[]
+  stats: Array<{ id: string; label: string; value: number; format: 'number' | 'percent' }>
+  activity: Array<{ id: string; type: string; title: string; date: string }>
+}
+
 export type OrderStatus = 'completado' | 'enviado' | 'procesando' | 'cancelado'
 
 export interface Order {

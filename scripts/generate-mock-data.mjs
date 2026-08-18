@@ -276,6 +276,35 @@ for (let m = 0; m < 8; m++) {
   })
 }
 
+/* Perfil de la persona (propietaria del dashboard) */
+const profile = {
+  name: 'Nadia Herrera',
+  initials: 'NH',
+  role: 'Analista de Operaciones',
+  company: 'Nébula',
+  email: 'nadia@nebula.mx',
+  phone: '+52 55 1234 5678',
+  location: 'Ciudad de México, MX',
+  timezone: 'America/Mexico_City (UTC−6)',
+  team: 'Comercial · Operaciones',
+  joined: '2024-03-04',
+  bio: 'Analizo las operaciones diarias de Nébula: KPIs, tendencias y reportes para el equipo comercial. Fan de los datos claros y del café con leche.',
+  skills: ['Análisis de datos', 'E-commerce', 'Reporting', 'Excel avanzado', 'SQL', 'Power BI'],
+  languages: ['Español (nativo)', 'Inglés (avanzado)'],
+  stats: [
+    { id: 'pedidos', label: 'Pedidos procesados', value: 4820, format: 'number' },
+    { id: 'reportes', label: 'Reportes exportados', value: 326, format: 'number' },
+    { id: 'horas', label: 'Horas de análisis', value: 1240, format: 'number' },
+    { id: 'satisfaccion', label: 'Satisfacción interna', value: 92, format: 'percent' },
+  ],
+  activity: [
+    { id: 'a1', type: 'export', title: 'Exportó el reporte de ventas por categoría', date: '2026-08-18T09:42:00Z' },
+    { id: 'a2', type: 'filter', title: 'Ajustó el rango de fechas a los últimos 30 días', date: '2026-08-18T08:15:00Z' },
+    { id: 'a3', type: 'order', title: 'Revisó 24 pedidos pendientes de envío', date: '2026-08-17T17:30:00Z' },
+    { id: 'a4', type: 'kpi', title: 'Compartió el KPI de retención con el equipo', date: '2026-08-16T12:05:00Z' },
+  ],
+}
+
 /* Pedidos recientes (60) derivados de la serie diaria de los últimos días */
 const recentDays = dailySales.filter((rec) => rec.d >= '2026-08-08')
 const firstNames = ['Lucía', 'Mateo', 'Valentina', 'Santiago', 'Camila', 'Nicolás', 'Isabella', 'Daniel', 'Sofía', 'Julián', 'Renata', 'Andrés', 'Emilia', 'Tomás', 'Mariana', 'Felipe', 'Antonia', 'Sebastián', 'Carolina', 'Gabriel']
@@ -315,14 +344,16 @@ const files = {
   'monthly.json': monthly,
   'customers.json': customers,
   'orders.json': orders,
+  'profile.json': profile,
 }
 
 for (const [file, data] of Object.entries(files)) {
   const path = join(OUT, file)
   const isLarge = file === 'daily-sales.json'
+  const count = Array.isArray(data) ? data.length : 1
   const body = isLarge ? JSON.stringify(data) : JSON.stringify(data, null, 2)
   writeFileSync(path, `${body}\n`)
-  console.log(`✓ ${file} (${data.length} registros, ${(Buffer.byteLength(body) / 1024 / 1024).toFixed(2)} MB)`)
+  console.log(`✓ ${file} (${count} ${Array.isArray(data) ? 'registros' : 'objeto'}, ${(Buffer.byteLength(body) / 1024 / 1024).toFixed(2)} MB)`)
 }
 
 console.log('\nDatos mock generados en src/data/')
