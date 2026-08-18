@@ -42,6 +42,14 @@ function addDaysIso(isoDate: string, days: number): string {
   return date.toISOString().slice(0, 10)
 }
 
+function windowSizeFor(period: TrendPeriod): number {
+  return period === 'diario'
+    ? TREND_DAYS
+    : period === 'semanal'
+      ? TREND_WEEKS * 7
+      : TREND_MONTHS * 30
+}
+
 /** Ventana de registros: los últimos `days` días disponibles. */
 function lastNDays(records: DailySale[], days: number): DailySale[] {
   if (records.length === 0) return []
@@ -130,17 +138,18 @@ function buildBreakdown(
  * Construye el conjunto de datos de tendencias para un periodo:
  * serie temporal + desgloses por categoría, canal y región, siempre
  * sobre la misma ventana de registros (todo coherente entre gráficos).
- */
-export function buildTrendData(
+ */ export function buildTrendData(
   records: DailySale[],
   period: TrendPeriod,
   categories: Category[],
   regions: Region[],
   channels: Channel[],
+  options: { windowed?: boolean } = {},
 ): TrendData {
-  const windowSize =
-    period === 'diario' ? TREND_DAYS : period === 'semanal' ? TREND_WEEKS * 7 : TREND_MONTHS * 30
-  const windowRecords = lastNDays(records, windowSize)
+  // Con un rango de fechas activo los registros ya llegan filtrados:
+  // se muestran tal cual; sin rango se aplica la ventana del periodo.
+  const windowRecords =
+    options.windowed === false ? records : lastNDays(records, windowSizeFor(period))
 
   const trend = buildTrend(windowRecords, period)
   const byCategory = buildBreakdown(windowRecords, 'c', categories)

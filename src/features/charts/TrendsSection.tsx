@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
-import { useDashboardStore, type TrendPeriod } from '@/store/useDashboardStore'
+import { useDashboardStore, useFilteredDaily, type TrendPeriod } from '@/store/useDashboardStore'
 import { formatCompactCurrency } from '@/lib/formatters'
 
 import { buildTrendData, type TrendData } from './trendData'
@@ -49,13 +49,18 @@ function ChartsSkeleton() {
 export function TrendsSection() {
   const status = useDashboardStore((state) => state.status)
   const data = useDashboardStore((state) => state.data)
+  const filters = useDashboardStore((state) => state.filters)
   const period = useDashboardStore((state) => state.period)
   const setPeriod = useDashboardStore((state) => state.setPeriod)
+  const filteredDaily = useFilteredDaily()
 
   const trends: TrendData | null = useMemo(() => {
     if (!data) return null
-    return buildTrendData(data.daily, period, data.categories, data.regions, data.channels)
-  }, [data, period])
+    // Con rango de fechas activo los registros ya llegan filtrados (sin re-ventanear).
+    return buildTrendData(filteredDaily, period, data.categories, data.regions, data.channels, {
+      windowed: filters.dateRange === null,
+    })
+  }, [data, filteredDaily, period, filters.dateRange])
 
   const gridRef = useRef<HTMLDivElement>(null)
 

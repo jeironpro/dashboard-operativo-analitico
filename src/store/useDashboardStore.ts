@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { create } from 'zustand'
 
 import type {
@@ -10,6 +11,7 @@ import type {
   Region,
   WeeklySeries,
 } from '@/types'
+import { DEFAULT_FILTERS, filterRecords, type DashboardFilters } from '@/lib/filters'
 
 export type TrendPeriod = 'diario' | 'semanal' | 'mensual'
 
@@ -30,8 +32,12 @@ interface DashboardState {
   status: LoadStatus
   /** conmutador de tendencias: diario / semanal / mensual */
   period: TrendPeriod
+  /** filtros activos (fecha, categoría, región, canal) */
+  filters: DashboardFilters
   data: DashboardData | null
   setPeriod: (period: TrendPeriod) => void
+  setFilters: (patch: Partial<DashboardFilters>) => void
+  resetFilters: () => void
   loadData: () => Promise<void>
 }
 
@@ -42,9 +48,14 @@ interface DashboardState {
 export const useDashboardStore = create<DashboardState>((set) => ({
   status: 'idle',
   period: 'diario',
+  filters: DEFAULT_FILTERS,
   data: null,
 
   setPeriod: (period) => set({ period }),
+
+  setFilters: (patch) => set((state) => ({ filters: { ...state.filters, ...patch } })),
+
+  resetFilters: () => set({ filters: DEFAULT_FILTERS }),
 
   loadData: async () => {
     set({ status: 'loading' })
@@ -79,3 +90,11 @@ export const useDashboardStore = create<DashboardState>((set) => ({
     }
   },
 }))
+
+/** Registros diarios con los filtros activos ya aplicados. */
+export function useFilteredDaily(): DailySale[] {
+  const data = useDashboardStore((state) => state.data)
+  const filters = useDashboardStore((state) => state.filters)
+
+  return useMemo(() => (data ? filterRecords(data.daily, filters) : []), [data, filters])
+}

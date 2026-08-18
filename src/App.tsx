@@ -6,6 +6,7 @@ import { HeroSection } from '@/features/layout/HeroSection'
 import { PlaceholderSection } from '@/features/layout/PlaceholderSection'
 import { KpiGrid } from '@/features/kpis/KpiGrid'
 import { TrendsSection } from '@/features/charts/TrendsSection'
+import { FilterBar } from '@/features/filters/FilterBar'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <AppShell>
         <div className="mx-auto w-full max-w-(--shell) px-4 pb-10 sm:px-6 lg:px-8">
           <HeroSection />
+          <FilterBar />
           <KpiGrid />
           <TrendsSection />
           <PlaceholderSection
