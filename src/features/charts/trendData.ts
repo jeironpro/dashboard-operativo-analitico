@@ -1,5 +1,6 @@
 import type { Category, Channel, DailySale, Region } from '@/types'
 import { sumTotals } from '@/lib/aggregations'
+import { addDaysIso } from '@/lib/dates'
 import { formatShortDate } from '@/lib/formatters'
 
 import type { TrendPeriod } from '@/store/useDashboardStore'
@@ -34,12 +35,6 @@ export interface TrendData {
   byChannel: BreakdownPoint[]
   byRegion: BreakdownPoint[]
   totalRevenue: number
-}
-
-function addDaysIso(isoDate: string, days: number): string {
-  const date = new Date(`${isoDate}T00:00:00Z`)
-  date.setUTCDate(date.getUTCDate() + days)
-  return date.toISOString().slice(0, 10)
 }
 
 function windowSizeFor(period: TrendPeriod): number {

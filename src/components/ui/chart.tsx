@@ -4,7 +4,7 @@ import type { TooltipValueType } from 'recharts'
 
 import { cn } from '@/lib/utils'
 
-// Format: { THEME_NAME: CSS_SELECTOR }
+// Formato: { NOMBRE_DEL_TEMA: SELECTOR_CSS }
 const THEMES = { light: '', dark: '.dark' } as const
 
 const INITIAL_DIMENSION = { width: 320, height: 200 } as const

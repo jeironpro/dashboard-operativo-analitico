@@ -37,11 +37,11 @@ describe('buildCategoryReport', () => {
       CATEGORIES,
     )
 
-    const hogar = report.rows.find((row) => row.categoryId === 'hogar')
-    const moda = report.rows.find((row) => row.categoryId === 'moda')
+    const home = report.rows.find((row) => row.categoryId === 'hogar')
+    const fashion = report.rows.find((row) => row.categoryId === 'moda')
 
-    expect(hogar).toMatchObject({ revenue: 150, orders: 3, units: 4 })
-    expect(moda).toMatchObject({ revenue: 200, orders: 4, units: 4 })
+    expect(home).toMatchObject({ revenue: 150, orders: 3, units: 4 })
+    expect(fashion).toMatchObject({ revenue: 200, orders: 4, units: 4 })
     expect(report.totals).toEqual({ revenue: 350, orders: 7, units: 8 })
   })
 

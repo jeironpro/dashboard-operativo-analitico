@@ -1,5 +1,6 @@
 import type { DailySale } from '@/types'
 import { sliceWindow } from './aggregations'
+import { addDaysIso, dayDiffIso } from './dates'
 
 export interface DateRangeFilter {
   from: string
@@ -41,19 +42,6 @@ export function activeFilterCount(filters: DashboardFilters): number {
     (filters.region !== null ? 1 : 0) +
     (filters.channel !== null ? 1 : 0)
   )
-}
-
-/** Días entre dos fechas ISO (inclusive). */
-export function dayDiffIso(from: string, to: string): number {
-  const start = new Date(`${from}T00:00:00Z`).getTime()
-  const end = new Date(`${to}T00:00:00Z`).getTime()
-  return Math.round((end - start) / 86_400_000)
-}
-
-function addDaysIso(isoDate: string, days: number): string {
-  const date = new Date(`${isoDate}T00:00:00Z`)
-  date.setUTCDate(date.getUTCDate() + days)
-  return date.toISOString().slice(0, 10)
 }
 
 /**
