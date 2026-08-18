@@ -2,7 +2,8 @@ import { useEffect, useMemo } from 'react'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { Card, CardContent } from '@/components/ui/card'
-import { computeKpis, dailySeries, relativeDelta, sliceWindow } from '@/lib/aggregations'
+import { computeKpis, dailySeries, relativeDelta } from '@/lib/aggregations'
+import { computeComparisonWindows } from '@/lib/filters'
 import { useDashboardStore } from '@/store/useDashboardStore'
 import { useReveal } from '@/hooks/useReveal'
 
@@ -43,6 +44,7 @@ function KpiGridSkeleton() {
 export function KpiGrid() {
   const status = useDashboardStore((state) => state.status)
   const data = useDashboardStore((state) => state.data)
+  const filters = useDashboardStore((state) => state.filters)
   const loadData = useDashboardStore((state) => state.loadData)
   useReveal([status])
 
@@ -54,7 +56,8 @@ export function KpiGrid() {
   const kpis = useMemo(() => {
     if (!data) return null
 
-    const { current, previous } = sliceWindow(data.daily)
+    // Respeta los filtros activos: ventana actual vs periodo anterior equivalente.
+    const { current, previous } = computeComparisonWindows(data.daily, filters)
     const currentKpis = computeKpis(current)
     const previousKpis = computeKpis(previous)
 
@@ -64,7 +67,7 @@ export function KpiGrid() {
       delta: relativeDelta(currentKpis[definition.id], previousKpis[definition.id]),
       series: dailySeries(current, definition.id).map((point) => point.value),
     }))
-  }, [data])
+  }, [data, filters])
 
   if (status !== 'ready' || !kpis) return <KpiGridSkeleton />
 
