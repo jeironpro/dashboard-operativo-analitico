@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { AppShell } from '@/features/layout/AppShell'
 import { HeroSection } from '@/features/layout/HeroSection'
 import { PlaceholderSection } from '@/features/layout/PlaceholderSection'
+import { KpiGrid } from '@/features/kpis/KpiGrid'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AppShell>
         <div className="mx-auto w-full max-w-(--shell) px-4 pb-10 sm:px-6 lg:px-8">
           <HeroSection />
+          <KpiGrid />
           <PlaceholderSection
             id="tendencias"
             title="Tendencias"

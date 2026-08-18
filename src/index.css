@@ -358,6 +358,42 @@
   }
 }
 
+/* ---- Tarjetas KPI (color-shift de Hum) ----
+ * Fuera de @layer para prevalecer sobre las utilities de shadcn (bg-card, shadow).
+ */
+.kpi-card {
+  background: color-mix(in oklch, var(--card-accent, var(--color-pear)) 6%, var(--color-paper));
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 220ms var(--ease-spring),
+    box-shadow 220ms var(--ease-out),
+    background-color 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .kpi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+    background: color-mix(in oklch, var(--card-accent, var(--color-pear)) 12%, var(--color-paper));
+  }
+}
+.kpi-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: var(--color-ink);
+  background: color-mix(in oklch, var(--card-accent, var(--color-pear)) 24%, var(--color-paper));
+}
+.kpi-card__value {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
 /* ---- Reducción de movimiento: todo colapsa a crossfade ---- */
 @media (prefers-reduced-motion: reduce) {
   *,

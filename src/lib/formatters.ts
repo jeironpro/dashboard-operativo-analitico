@@ -4,13 +4,6 @@ const currencyFormatter = new Intl.NumberFormat('es-MX', {
   maximumFractionDigits: 0,
 })
 
-const compactCurrencyFormatter = new Intl.NumberFormat('es-MX', {
-  style: 'currency',
-  currency: 'MXN',
-  notation: 'compact',
-  maximumFractionDigits: 1,
-})
-
 const numberFormatter = new Intl.NumberFormat('es-MX')
 
 const compactNumberFormatter = new Intl.NumberFormat('es-MX', {
@@ -23,9 +16,9 @@ export function formatCurrency(value: number): string {
   return currencyFormatter.format(value)
 }
 
-/** 1.234.567 → $1.2M */
+/** 1.234.567 → $1,2M (prefijo de moneda + número compacto) */
 export function formatCompactCurrency(value: number): string {
-  return compactCurrencyFormatter.format(value)
+  return `$${compactNumberFormatter.format(value)}`
 }
 
 /** 12345.6 → 12.346 */
