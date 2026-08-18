@@ -97,7 +97,7 @@ El diseño sigue la skill de diseño **hallmark** con el tema **Hum** (referenci
 
 ## Flujo de trabajo (PRs)
 
-El desarrollo se organiza por tareas, cada una en su rama y entregada mediante **pull request** con squash-merge hacia `main`. El plan detallado (tareas, ramas, criterios de aceptación y dependencias) está en [docs/plan-implementacion.md](docs/plan-implementacion.md).
+El desarrollo se organiza por tareas, cada una en su rama y entregada mediante **pull request** con squash-merge hacia `main`.
 
 Convenciones: rama `<prefijo>/<categoría>` (ej. `feature/kpi-cards`), commits `<prefijo>/<categoría>: <mensaje>` en imperativo, y CI verde obligatorio antes de mergear.
 
