@@ -1,8 +1,7 @@
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 import { NAV_ITEMS } from './nav'
-import { Mascot } from './Mascot'
+import { Logo } from './Logo'
 
 interface SidebarProps {
   /** id de la sección activa */
@@ -21,7 +20,7 @@ export function Sidebar({ activeSection }: SidebarProps) {
         className="flex items-center gap-3 rounded-full px-2"
         aria-label="Ir al resumen"
       >
-        <Mascot />
+        <Logo size={34} />
         <span className="flex flex-col">
           <span className="text-lg leading-tight font-semibold tracking-tight">Pulso</span>
           <span className="mono-label">Dashboard operativo</span>
@@ -52,9 +51,6 @@ export function Sidebar({ activeSection }: SidebarProps) {
       </nav>
 
       <div className="mt-auto flex flex-col items-center gap-3 px-2">
-        <Badge variant="outline" className="w-full justify-center gap-1.5 py-1">
-          Datos de demostración
-        </Badge>
         <p className="mono-label opacity-50">Nébula · 2026</p>
       </div>
     </aside>

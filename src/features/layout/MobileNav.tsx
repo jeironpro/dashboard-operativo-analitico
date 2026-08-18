@@ -1,7 +1,6 @@
 import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import {
   Sheet,
   SheetContent,
@@ -13,7 +12,7 @@ import {
 import { cn } from '@/lib/utils'
 
 import { NAV_ITEMS } from './nav'
-import { Mascot } from './Mascot'
+import { Logo } from './Logo'
 
 interface MobileNavProps {
   activeSection: string
@@ -31,7 +30,7 @@ export function MobileNav({ activeSection }: MobileNavProps) {
       <SheetContent side="left" className="w-72 gap-0 p-0">
         <SheetHeader className="border-b border-border/60 px-4 py-4">
           <div className="flex items-center gap-3">
-            <Mascot />
+            <Logo size={34} />
             <div>
               <SheetTitle className="text-lg font-semibold tracking-tight">Pulso</SheetTitle>
               <SheetDescription className="mono-label mt-1">Dashboard operativo</SheetDescription>
@@ -61,9 +60,7 @@ export function MobileNav({ activeSection }: MobileNavProps) {
           })}
         </nav>
         <div className="mt-auto border-t border-border/60 p-4">
-          <Badge variant="outline" className="w-full justify-center py-1">
-            Datos de demostración
-          </Badge>
+          <p className="mono-label opacity-60">Nébula · 2026</p>
         </div>
       </SheetContent>
     </Sheet>
