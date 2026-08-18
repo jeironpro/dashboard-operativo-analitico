@@ -12,7 +12,11 @@ function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
       <AppShell>
-        <div className="mx-auto w-full max-w-(--shell) px-4 pb-10 sm:px-6 lg:px-8">
+        {/* El padding inferior da scroll room para que la última sección
+            (placeholder corto) alcance la línea del sticky header y el
+            scroll-spy la resalte. Se retira cuando Reportes/Detalle sean
+            secciones reales con altura propia. */}
+        <div className="mx-auto w-full max-w-(--shell) px-4 pb-[36rem] sm:px-6 lg:px-8">
           <HeroSection />
           <FilterBar />
           <KpiGrid />

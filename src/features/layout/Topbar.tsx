@@ -1,8 +1,7 @@
-import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/formatters'
 
 import { MobileNav } from './MobileNav'
-import { Mascot } from './Mascot'
+import { Logo } from './Logo'
 
 interface TopbarProps {
   activeSection: string
@@ -20,7 +19,7 @@ export function Topbar({ activeSection }: TopbarProps) {
       <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <MobileNav activeSection={activeSection} />
-          <Mascot className="lg:hidden" />
+          <Logo size={28} className="lg:hidden" />
           <div className="min-w-0">
             <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg">
               Buenas tardes, equipo
@@ -32,10 +31,6 @@ export function Topbar({ activeSection }: TopbarProps) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <Badge variant="outline" className="hidden sm:inline-flex gap-1.5 py-1">
-            <span className="size-1.5 rounded-full bg-mint" aria-hidden="true" />
-            Datos de demostración
-          </Badge>
           <span
             aria-hidden="true"
             className="flex size-8 shrink-0 select-none items-center justify-center rounded-full bg-cyan text-sm font-semibold text-background"
