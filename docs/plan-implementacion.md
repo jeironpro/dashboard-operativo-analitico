@@ -1,6 +1,6 @@
 # Plan de implementación — Dashboard Operativo Analítico
 
-> Plan elaborado según la skill **dicresoft/TASK.md**: cada tarea se implementa en una rama individual (`prefijo/categoría`), se valida (tests + lint + build), se commitea con el formato `<prefijo>/<categoría>: <mensaje>` y se entrega mediante **pull request** con *squash and merge* hacia `main`.
+> Plan elaborado según la skill **dicresoft/TASK.md**: cada tarea se implementa en una rama individual (`prefijo/categoría`), se valida (tests + lint + build), se commitea con el formato `<prefijo>/<categoría>: <mensaje>` y se entrega mediante **pull request** con _squash and merge_ hacia `main`.
 >
 > Modo de trabajo: **sin Jira** (no existe identificador `ABC-123`). Los commits y títulos de PR usan el formato `<prefijo>/<categoría>: <mensaje>`.
 
@@ -19,15 +19,15 @@ Construir el frontend de un **dashboard operativo** de negocio (e-commerce mock)
 
 ## Convenciones
 
-| Concepto | Convención |
-|---|---|
-| Rama | `<prefijo>/<categoría>` (ej. `feature/kpi-cards`) |
-| Commit | `<prefijo>/<categoría>: <mensaje>` (imperativo, minúsculas, sin punto final) |
-| Título PR | Igual que el commit |
-| Merge | `gh pr merge --squash --delete-branch` hacia `main` |
-| Pre-commit | Husky + lint-staged (ESLint + Prettier), según `PRECOMMIT.md` |
-| Tests | vitest (según `VITE_RULES.md`) |
-| Base de cada rama | `main` actualizado (`git checkout main && git pull`) |
+| Concepto          | Convención                                                                   |
+| ----------------- | ---------------------------------------------------------------------------- |
+| Rama              | `<prefijo>/<categoría>` (ej. `feature/kpi-cards`)                            |
+| Commit            | `<prefijo>/<categoría>: <mensaje>` (imperativo, minúsculas, sin punto final) |
+| Título PR         | Igual que el commit                                                          |
+| Merge             | `gh pr merge --squash --delete-branch` hacia `main`                          |
+| Pre-commit        | Husky + lint-staged (ESLint + Prettier), según `PRECOMMIT.md`                |
+| Tests             | vitest (según `VITE_RULES.md`)                                               |
+| Base de cada rama | `main` actualizado (`git checkout main && git pull`)                         |
 
 ## Tareas
 
@@ -132,7 +132,7 @@ Construir el frontend de un **dashboard operativo** de negocio (e-commerce mock)
 - **Alcance:**
   - Tabla de reportes disponibles y tabla de pedidos recientes (búsqueda, paginación).
   - Exportación **CSV** (Blob), **Excel** (`xlsx`) y **PDF** (`jspdf` + `jspdf-autotable`) aplicando los filtros activos.
-  - Feedback de descarga (toast) y *star-burst* del tema Hum al exportar.
+  - Feedback de descarga (toast) y _star-burst_ del tema Hum al exportar.
   - Tests de los generadores de exportación.
 - **Dependencias:** T-08.
 - **Criterios de aceptación:** los tres formatos se descargan correctamente con los filtros aplicados; `yarn test` verde.
