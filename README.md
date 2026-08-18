@@ -2,9 +2,7 @@
 
 Dashboard operativo analítico (frontend) para monitorear KPIs de negocio, analizar tendencias y exportar reportes. Pensado para el equipo comercial de una pyme e-commerce: todo el negocio de un vistazo, con datos de demostración realistas y diseño 100 % responsive.
 
-> Forma parte de un portafolio personal que demuestra buenas prácticas de programación, organización y documentación en GitHub.
-
-## ✨ Funcionalidades
+## Funcionalidades
 
 - **KPIs del negocio** — ventas, conversión, pedidos, ticket promedio, retención y clientes nuevos con contadores animados (animejs), variación vs. periodo anterior y sparklines.
 - **Gráficos de tendencias** — ventas del periodo (área), por categoría (barras), por canal (donut) y por región (barras horizontales), con conmutador **diario / semanal / mensual** (Recharts).
@@ -15,13 +13,14 @@ Dashboard operativo analítico (frontend) para monitorear KPIs de negocio, anali
 - **Datos MOCK realistas** — generador determinista (semilla fija) que produce ~20 mil registros diarios coherentes entre series.
 - **100 % responsive** — de 320 px en adelante: sidebar en desktop, drawer en móvil, tablas con columnas adaptativas.
 
-## 🧱 Stack
+## Stack
 
 | Capa        | Tecnología                                                    |
 | ----------- | ------------------------------------------------------------- |
 | Framework   | React 19 + TypeScript + Vite 8                                |
 | Gestor      | yarn 4 (`.yarnrc.yml`, Corepack)                              |
-| UI          | shadcn/ui sobre Tailwind CSS v4 (Radix primitives)            |     | Estado | zustand |
+| UI          | shadcn/ui sobre Tailwind CSS v4 (Radix primitives)            |
+| Estado      | zustand                                                       |
 | Enrutado    | react-router (dashboard en `/`, perfil en `/perfil`)          |
 | Gráficos    | Recharts (vía componente `chart` de shadcn/ui)                |
 | Animaciones | animejs (contadores, transiciones, star-burst)                |
@@ -29,12 +28,12 @@ Dashboard operativo analítico (frontend) para monitorear KPIs de negocio, anali
 | Tests       | vitest (+ ESLint, Prettier, Husky/lint-staged)                |
 | CI          | GitHub Actions: install → lint → typecheck → test → build     |
 
-## 📋 Requisitos
+## Requisitos
 
 - Node.js ≥ 20 (recomendado 22 LTS)
 - yarn 4.18 (`corepack enable` si usas Corepack, o `npm i -g yarn`)
 
-## 🚀 Instalación y uso
+## Instalación y uso
 
 ```bash
 # 1. Instalar dependencias
@@ -65,7 +64,7 @@ yarn dev --port 5199
 
 > Pre-commit: Husky + lint-staged ejecutan ESLint y Prettier sobre los archivos modificados.
 
-## 🗂️ Estructura
+## Estructura
 
 ```
 src/
@@ -85,7 +84,7 @@ src/
 └─ types/              # Tipos de dominio del negocio
 ```
 
-## 🎨 Decisiones de diseño (skill hallmark · tema Hum)
+## Decisiones de diseño (skill hallmark · tema Hum)
 
 El diseño sigue la skill de diseño **hallmark** con el tema **Hum** (referencia [`hum-07`](https://www.usehallmark.com/examples/hum-07/)):
 
@@ -96,27 +95,12 @@ El diseño sigue la skill de diseño **hallmark** con el tema **Hum** (referenci
 - **Motion** — animejs para contadores (_tick-up_), transición de periodo, _reveal_ de secciones, marquee del footer y **star-burst** coral como microcelebración al exportar o interactuar con la mascota. Todo respeta `prefers-reduced-motion`.
 - **Personaje** — "Pulso", la mascota del dashboard: una bolita pera con ojos que vive en el hero y celebra al hacer clic. También es el favicon y el logo de la app.
 
-## 🔧 Flujo de trabajo (PRs)
+## Flujo de trabajo (PRs)
 
 El desarrollo se organiza por tareas, cada una en su rama y entregada mediante **pull request** con squash-merge hacia `main`. El plan detallado (tareas, ramas, criterios de aceptación y dependencias) está en [docs/plan-implementacion.md](docs/plan-implementacion.md).
 
 Convenciones: rama `<prefijo>/<categoría>` (ej. `feature/kpi-cards`), commits `<prefijo>/<categoría>: <mensaje>` en imperativo, y CI verde obligatorio antes de mergear.
 
-## ✅ Estado del proyecto
-
-| Tarea                                         | PR                     | Estado |
-| --------------------------------------------- | ---------------------- | ------ |
-| T-01 Plan de implementación                   | `docs/plan`            | ✅     |
-| T-02 Scaffold (Vite + React + TS + tooling)   | `chore/scaffold`       | ✅     |
-| T-03 Libro de estilo y tema Hum               | `chore/style-guide`    | ✅     |
-| T-04 Datos mock realistas                     | `chore/mock-data`      | ✅     |
-| T-05 Shell del dashboard (nav responsive)     | `feature/layout-shell` | ✅     |
-| T-06 Tarjetas KPI con animejs                 | `feature/kpi-cards`    | ✅     |
-| T-07 Gráficos de tendencias                   | `feature/trend-charts` | ✅     |
-| T-08 Filtros por fecha/categoría/región/canal | `feature/filters`      | ✅     |
-| T-09 Reportes exportables + pedidos           | `feature/reports`      | ✅     |     | T-10 Documentación final | `docs/readme` | ✅  |
-| T-11 Página de perfil                         | `feature/profile-page` | ✅     |
-
-## 📜 Licencia
+## Licencia
 
 MIT — consulta [LICENSE](LICENSE).

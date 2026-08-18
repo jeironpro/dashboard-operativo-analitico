@@ -1,4 +1,5 @@
 import type { DailySale } from '@/types'
+import { addDaysIso } from './dates'
 
 /** Ventana de comparación por defecto: últimos 30 días vs los 30 anteriores. */
 export const DEFAULT_WINDOW_DAYS = 30
@@ -91,12 +92,6 @@ export function relativeDelta(current: number, previous: number): number | null 
   return ((current - previous) / previous) * 100
 }
 
-function addDaysIso(isoDate: string, days: number): string {
-  const date = new Date(`${isoDate}T00:00:00Z`)
-  date.setUTCDate(date.getUTCDate() + days)
-  return date.toISOString().slice(0, 10)
-}
-
 /**
  * Divide los registros (ordenados por fecha) en ventana actual y ventana
  * anterior de la misma longitud. La ventana actual termina en la última
@@ -144,16 +139,4 @@ export function dailySeries(
     const value = deriveKpis(totals)[key]
     return { date, value }
   })
-}
-
-/** Margen bruto estimado de un conjunto de registros (según márgenes por categoría). */
-export function estimateMargin(records: DailySale[]): number {
-  let revenue = 0
-  let margin = 0
-  for (const record of records) {
-    const rate = CATEGORY_MARGIN_RATES[record.c] ?? 0.3
-    revenue += record.rev
-    margin += record.rev * rate
-  }
-  return revenue > 0 ? (margin / revenue) * 100 : 0
 }

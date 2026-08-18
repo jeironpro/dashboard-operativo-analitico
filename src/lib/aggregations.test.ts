@@ -5,7 +5,6 @@ import {
   computeKpis,
   dailySeries,
   deriveKpis,
-  estimateMargin,
   relativeDelta,
   sliceWindow,
   sumTotals,
@@ -105,13 +104,5 @@ describe('dailySeries', () => {
     )
 
     expect(series).toEqual([{ date: '2026-08-01', value: 400 }])
-  })
-})
-
-describe('estimateMargin', () => {
-  it('estima el margen ponderado por categoría', () => {
-    const margin = estimateMargin([record('2026-08-01', { c: 'electronica', rev: 1000 })])
-
-    expect(margin).toBeCloseTo(28)
   })
 })

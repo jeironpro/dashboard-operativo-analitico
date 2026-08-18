@@ -81,7 +81,7 @@ describe('buildTrendData', () => {
     const records = [record('2026-07-01')]
     const trend = buildTrendData(records, 'diario', CATALOG, REGIONS, CHANNELS)
 
-    const moda = trend.byCategory.find((item) => item.id === 'moda')
-    expect(moda?.revenue).toBe(0)
+    const fashion = trend.byCategory.find((item) => item.id === 'moda')
+    expect(fashion?.revenue).toBe(0)
   })
 })
