@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 
 interface LogoProps {
-  /** tamaño en píxeles (ancho y alto) */
-  size?: number
-  className?: string
+    /** tamaño en píxeles (ancho y alto) */
+    size?: number
+    className?: string
 }
 
 /**
@@ -12,14 +12,14 @@ interface LogoProps {
  * `public/favicon.svg` para que logo y favicon sean siempre idénticos.
  */
 export function Logo({ size = 36, className }: LogoProps) {
-  return (
-    <img
-      src="/favicon.svg"
-      alt="Pulso"
-      width={size}
-      height={size}
-      draggable={false}
-      className={cn('shrink-0 select-none', className)}
-    />
-  )
+    return (
+        <img
+            src="/favicon.svg"
+            alt="Pulso"
+            width={size}
+            height={size}
+            draggable={false}
+            className={cn('shrink-0 select-none', className)}
+        />
+    )
 }

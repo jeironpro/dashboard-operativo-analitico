@@ -10,7 +10,7 @@ import { Topbar } from './Topbar'
 import { Footer } from './Footer'
 
 interface AppShellProps {
-  children: ReactNode
+    children: ReactNode
 }
 
 /**
@@ -19,19 +19,19 @@ interface AppShellProps {
  * Resalta el ítem del panel según la ruta (/perfil) o la sección visible.
  */
 export function AppShell({ children }: AppShellProps) {
-  const { pathname } = useLocation()
-  const visibleSection = useActiveSection(NAV_SECTION_IDS)
-  const activeId = navIdFor(visibleSection, pathname)
-  useReveal([pathname])
+    const { pathname } = useLocation()
+    const visibleSection = useActiveSection(NAV_SECTION_IDS)
+    const activeId = navIdFor(visibleSection, pathname)
+    useReveal([pathname])
 
-  return (
-    <div className="flex min-h-svh">
-      <Sidebar activeId={activeId} />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar activeId={activeId} />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </div>
-    </div>
-  )
+    return (
+        <div className="flex min-h-svh">
+            <Sidebar activeId={activeId} />
+            <div className="flex min-w-0 flex-1 flex-col">
+                <Topbar activeId={activeId} />
+                <main className="flex-1">{children}</main>
+                <Footer />
+            </div>
+        </div>
+    )
 }
