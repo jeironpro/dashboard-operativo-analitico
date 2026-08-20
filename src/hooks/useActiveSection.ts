@@ -17,63 +17,64 @@ const HEADER_OFFSET = 104
  * "anclada" arriba — en lugar de forzar siempre la última.
  */
 export function useActiveSection(sectionIds: readonly string[]): string {
-  const [active, setActive] = useState(sectionIds[0] ?? '')
+    const [active, setActive] = useState(sectionIds[0] ?? '')
 
-  useEffect(() => {
-    let rafId = 0
+    useEffect(() => {
+        let rafId = 0
 
-    const update = () => {
-      let current = sectionIds[0] ?? ''
+        const update = () => {
+            let current = sectionIds[0] ?? ''
 
-      // Sección activa = la última cuyo borde superior ya cruzó la línea
-      // del sticky header.
-      for (const id of sectionIds) {
-        const element = document.getElementById(id)
-        if (element && element.getBoundingClientRect().top <= HEADER_OFFSET) {
-          current = id
+            // Sección activa = la última cuyo borde superior ya cruzó la línea
+            // del sticky header.
+            for (const id of sectionIds) {
+                const element = document.getElementById(id)
+                if (element && element.getBoundingClientRect().top <= HEADER_OFFSET) {
+                    current = id
+                }
+            }
+
+            // Al llegar al fondo, las secciones cortas del final nunca llegan a
+            // cruzar la línea (no hay scroll suficiente). En ese caso la activa es
+            // la primera sección que sigue visible por debajo de la línea (la que
+            // queda "anclada" arriba), en lugar de forzar siempre la última, que
+            // desincronizaba el panel lateral al hacer clic en la penúltima.
+            const scrolledToBottom =
+                window.innerHeight + Math.ceil(window.scrollY) >=
+                document.documentElement.scrollHeight - 2
+            if (scrolledToBottom) {
+                for (const id of sectionIds) {
+                    const element = document.getElementById(id)
+                    if (element && element.getBoundingClientRect().top > HEADER_OFFSET) {
+                        current = id
+                        break
+                    }
+                }
+            }
+
+            setActive((previous) => (previous === current ? previous : current))
         }
-      }
 
-      // Al llegar al fondo, las secciones cortas del final nunca llegan a
-      // cruzar la línea (no hay scroll suficiente). En ese caso la activa es
-      // la primera sección que sigue visible por debajo de la línea (la que
-      // queda "anclada" arriba), en lugar de forzar siempre la última, que
-      // desincronizaba el panel lateral al hacer clic en la penúltima.
-      const scrolledToBottom =
-        window.innerHeight + Math.ceil(window.scrollY) >= document.documentElement.scrollHeight - 2
-      if (scrolledToBottom) {
-        for (const id of sectionIds) {
-          const element = document.getElementById(id)
-          if (element && element.getBoundingClientRect().top > HEADER_OFFSET) {
-            current = id
-            break
-          }
+        const scheduleUpdate = () => {
+            cancelAnimationFrame(rafId)
+            rafId = requestAnimationFrame(update)
         }
-      }
 
-      setActive((previous) => (previous === current ? previous : current))
-    }
+        update()
+        window.addEventListener('scroll', scheduleUpdate, { passive: true })
+        window.addEventListener('resize', scheduleUpdate, { passive: true })
 
-    const scheduleUpdate = () => {
-      cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(update)
-    }
+        // Recalcula cuando el contenido cambia de tamaño (carga de KPIs/gráficos).
+        const resizeObserver = new ResizeObserver(scheduleUpdate)
+        resizeObserver.observe(document.body)
 
-    update()
-    window.addEventListener('scroll', scheduleUpdate, { passive: true })
-    window.addEventListener('resize', scheduleUpdate, { passive: true })
+        return () => {
+            cancelAnimationFrame(rafId)
+            window.removeEventListener('scroll', scheduleUpdate)
+            window.removeEventListener('resize', scheduleUpdate)
+            resizeObserver.disconnect()
+        }
+    }, [sectionIds])
 
-    // Recalcula cuando el contenido cambia de tamaño (carga de KPIs/gráficos).
-    const resizeObserver = new ResizeObserver(scheduleUpdate)
-    resizeObserver.observe(document.body)
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('scroll', scheduleUpdate)
-      window.removeEventListener('resize', scheduleUpdate)
-      resizeObserver.disconnect()
-    }
-  }, [sectionIds])
-
-  return active
+    return active
 }

@@ -13,33 +13,33 @@ import { ReportsSection } from '@/features/reports/ReportsSection'
 import { ProfilePage } from '@/features/profile/ProfilePage'
 
 function Dashboard() {
-  return (
-    <div className="mx-auto w-full max-w-(--shell) px-4 pb-24 sm:px-6 lg:px-8">
-      <HeroSection />
-      <FilterBar />
-      <KpiGrid />
-      <TrendsSection />
-      <OrdersSection />
-      <ReportsSection />
-    </div>
-  )
+    return (
+        <div className="mx-auto w-full max-w-(--shell) px-4 pb-24 sm:px-6 lg:px-8">
+            <HeroSection />
+            <FilterBar />
+            <KpiGrid />
+            <TrendsSection />
+            <OrdersSection />
+            <ReportsSection />
+        </div>
+    )
 }
 
 function App() {
-  return (
-    <BrowserRouter>
-      <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
-        <ScrollManager />
-        <AppShell>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/perfil" element={<ProfilePage />} />
-          </Routes>
-        </AppShell>
-        <Toaster position="bottom-right" richColors closeButton />
-      </ThemeProvider>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
+                <ScrollManager />
+                <AppShell>
+                    <Routes>
+                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/perfil" element={<ProfilePage />} />
+                    </Routes>
+                </AppShell>
+                <Toaster position="bottom-right" richColors closeButton />
+            </ThemeProvider>
+        </BrowserRouter>
+    )
 }
 
 export default App
